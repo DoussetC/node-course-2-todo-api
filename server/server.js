@@ -7,10 +7,10 @@ let {
 } = require('./db/mongoose');
 const {
   Todo
-} = require('./db/models/todo');
+} = require('./models/todo');
 const {
   User
-} = require('./db/models/user');
+} = require('./models/user');
 
 const app = express();
 
@@ -40,3 +40,8 @@ app.post('/todos', (req, res) => {
 app.listen(3000, () => {
   console.log('Started on port 3000');
 })
+
+
+module.exports = {
+  app
+}
