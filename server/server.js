@@ -11,6 +11,9 @@ const {
 const {
   User
 } = require('./models/user');
+const {
+  ObjectID
+} = require('mongodb');
 
 const app = express();
 
@@ -45,6 +48,28 @@ app.get('/todos', (req, res) => {
   })
 })
 
+
+// GET /todos/1234
+app.get('/todos/:id', (req, res) => {
+  let id = req.params.id;
+  if (!ObjectID.isValid(id)) {
+    console.log('Invalid Id detected before sending request to Mongoose');
+    res.status(404).send({})
+  }
+  Todo.findById(id).then((todo) => {
+    if (!todo) {
+      return res.status(404).send()
+    }
+    console.log('doc retrieved: ', todo);
+    res.status(200).send({
+      todo
+    })
+
+  }).catch((e) => {
+    console.log('an error occured', e.message);
+    res.status(400).send({});
+  })
+})
 
 
 
