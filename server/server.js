@@ -93,10 +93,9 @@ app.delete('/todos/:id', (req, res) => {
   // error
   // 400 empty body
 
-  Todo.findByIdAndRemove(id).then((doc) => {
-    console.log(doc);
+  Todo.findByIdAndRemove(id).then((todo) => {
     res.status(200).send({
-      message: 'Todo deleted'
+      todo
     })
   }).catch((e) => {
     console.log(e.message);
